@@ -1,5 +1,5 @@
 # 数字人对话demo
-基于开源ASR、LLM、TTS、THG的数字人对话demo，首包延迟3-5s，持续更新中。
+基于开源ASR、LLM、TTS、THG的数字人对话demo，首包延迟3-5s。
 
 在线demo：https://www.modelscope.cn/studios/AI-ModelScope/video_chat
 
