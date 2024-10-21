@@ -1,11 +1,10 @@
-<h1>数字人对话demo</h1>
-基于开源ASR、LLM、TTS、THG的数字人对话demo，首包延迟3-5s，持续更新中。<br><br>
+# 数字人对话demo
+基于开源ASR、LLM、TTS、THG的数字人对话demo，首包延迟3-5s，持续更新中。
 
 在线demo：https://www.modelscope.cn/studios/AI-ModelScope/video_chat
 
 **中文简体** | [**English**](./docs/README_en.md)
 
-</div>
 
 ## 技术选型
 * ASR (Automatic Speech Recognition): [FunASR](https://github.com/modelscope/FunASR)

@@ -1,10 +1,9 @@
-<h1>Digital Human Dialogue Demo</h1>
-A digital human dialogue demo based on open-source ASR, LLM, TTS, and THG, with an first package latency of 3-5 seconds.<br><br>
+# Digital Human Dialogue Demo
+A digital human dialogue demo based on open-source ASR, LLM, TTS, and THG, with an first package latency of 3-5 seconds.
 
 Online demo：https://www.modelscope.cn/studios/AI-ModelScope/video_chat
 
 [**中文简体**](../README.md) | **English**
-</div>
 
 ## Technology Stack
 * ASR (Automatic Speech Recognition): [FunASR](https://github.com/modelscope/FunASR)
