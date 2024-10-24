@@ -13,7 +13,10 @@ Online demo：https://www.modelscope.cn/studios/AI-ModelScope/video_chat
 
 ## Local Deployment
 ### Environment Setup
-Using the image version: ubuntu22.04-py310-torch2.1.2-tf2.14.0-modelscope1.14.0
+
+* ubuntu 22.04
+* python 3.10
+* torch 2.1.2
 
 ```bash
 $ git lfs install

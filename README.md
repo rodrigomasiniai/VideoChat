@@ -3,6 +3,8 @@
 
 在线demo：https://www.modelscope.cn/studios/AI-ModelScope/video_chat
 
+详细的技术介绍请看[这篇文章](https://mp.weixin.qq.com/s/jpoB8O2IyjhXeAWNWnAj7A)
+
 **中文简体** | [**English**](./docs/README_en.md)
 
 
@@ -14,7 +16,10 @@
 
 ## 本地部署
 ### 环境配置
-使用镜像版本：ubuntu22.04-py310-torch2.1.2-tf2.14.0-modelscope1.14.0
+
+* ubuntu 22.04
+* python 3.10
+* torch 2.1.2
 
 ```bash
 $ git lfs install
