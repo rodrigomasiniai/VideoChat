@@ -67,5 +67,5 @@ $ python app.py
 3. 在`/app.py`中Gradio的avatar_name中加入数字人形象名后重新启动服务，等待完成初始化即可。
 
 ## TODO
-1. 音色克隆
+1. 音色克隆 ✅
 2. 链路优化（端到端语音API）

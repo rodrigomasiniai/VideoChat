@@ -70,5 +70,5 @@ Modify the avatar_list in the Muse_Talk class in /src/thg.py to include (avatar_
 Add the digital human avatar name to the avatar_name field in Gradio within app.py, then restart the service and wait for initialization to complete.
 
 ## TODO
-1. Voice cloning
+1. Voice cloning ✅
 2. Pipeline optimization (end-to-end voice API)

@@ -55,17 +55,35 @@ class ChatPipeline:
         self.time_cost = [[] for _ in range(4)] # Duration, TTS, THG, FFMPEG
     
     
-    def load_voice(self, avatar_voice, tts_module):
+    def load_voice(self, avatar_voice = None, tts_module = None, ref_audio_path = None):
+        start_time = time.time()
         avatar_voice = avatar_voice.split(" ")[0]
-        # GPT-SoVits
         yield gr.update(interactive=False, value=None)
-        if tts_module == "GPT-SoVits":
-            ref_audio_path = f'data/audio/{avatar_voice}.wav'
-            self.tts.init_infer(ref_audio_path)
+        if ref_audio_path:
+            audio = AudioSegment.from_file(ref_audio_path)
+            audio_length = len(audio) / 1000
+            if audio_length > 10:
+                gr.Error("Reference audio should be less than 10s. Please try again.")
+                return
+            prompt_text = self.asr.infer(ref_audio_path)
+            print(f"Reference text: {prompt_text}")
+            self.tts.init_infer(ref_audio_path, prompt_text)
+
+            print(f"Reference voice loaded.")
+            gr.Info("Reference voice loaded.", duration = 2)
         else:
-            self.tts_api.voice = avatar_voice   
+            # GPT-SoVits
+            if tts_module == "GPT-SoVits":
+                ref_audio_path = f'data/audio/{avatar_voice}.wav'
+                self.tts.init_infer(ref_audio_path)
+            # CosyVoice
+            else:
+                self.tts_api.voice = avatar_voice  
+
+            gr.Info("Avatar voice loaded.", duration = 2)
         yield gr.update(interactive=True, value=None)
-        gr.Info("Avatar voice loaded.", duration = 2)
+        print(f"Load voice cost: {round(time.time()-start_time,2)}s")
+
     
 
     def warm_up(self):
@@ -84,6 +102,7 @@ class ChatPipeline:
         self.start_time = None
         self.asr_cost = 0
         self.time_cost = [[] for _ in range(4)]
+
 
     def stop_pipeline(self, user_processing_flag):
         if user_processing_flag:
@@ -104,11 +123,13 @@ class ChatPipeline:
             gr.Info("Pipeline is not running.", duration = 2)
             return user_processing_flag
         
-    def run_pipeline(self, user_input, user_messages, chunk_size, avatar_name, tts_module, chat_mode):
+
+    def run_pipeline(self, user_input, user_messages, chunk_size, avatar_name, tts_module, chat_mode, user_input_audio = None):
         self.flush_pipeline()
         self.start_time = time.time()
         avatar_name = avatar_name.split(" ")[0]
         project_path = f"./workspaces/results/{avatar_name}/{get_timestamp_str()}"
+        tts_module = 'GPT-SoVits' if user_input_audio else tts_module
         os.makedirs(project_path, exist_ok=True)
 
         # Start pipeline

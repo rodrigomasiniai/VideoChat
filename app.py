@@ -47,9 +47,11 @@ def create_gradio():
                 with gr.Row():
                     avatar_name = gr.Dropdown(label = "数字人形象", choices = ["Avatar1 (通义万相)", "Avatar2 (通义万相)", "Avatar3 (MuseV)"], value = "Avatar1 (通义万相)")
                     chat_mode = gr.Dropdown(label = "对话模式", choices = ["单轮对话 (一次性回答问题)", "互动对话 (分多次回答问题)"], value = "单轮对话 (一次性回答问题)")
+                    chunk_size = gr.Slider(label = "每次处理的句子最短长度", minimum = 0, maximum = 30, value = 5, step = 1) 
                     tts_module = gr.Dropdown(label = "TTS选型", choices = ["GPT-SoVits", "CosyVoice"], value = "CosyVoice")
                     avatar_voice = gr.Dropdown(label = "TTS音色", choices = ["longxiaochun (CosyVoice)", "longwan (CosyVoice)", "longcheng (CosyVoice)", "longhua (CosyVoice)", "少女 (GPT-SoVits)", "女性 (GPT-SoVits)", "青年 (GPT-SoVits)", "男性 (GPT-SoVits)"], value="longwan (CosyVoice)")
-                    chunk_size = gr.Slider(label = "每次处理的句子最短长度", minimum = 0, maximum = 30, value = 5, step = 1) 
+                    
+                user_input_audio = gr.Audio(label="音色克隆(可选项，输入音频控制在3-10s。如果不需要音色克隆，请清空。)", sources = ["microphone", "upload"],type = "filepath")
 
                 user_input = mgr.MultimodalInput(sources=["microphone"])
 
@@ -62,19 +64,23 @@ def create_gradio():
         user_processing_flag = gr.State(False)
         lifecycle = mgr.Lifecycle()
 
+        # voice clone
+        user_input_audio.stop_recording(chat_pipeline.load_voice,
+            inputs = [avatar_voice, tts_module, user_input_audio],
+            outputs = [user_input])
         # loading TTS Voice
         avatar_voice.change(chat_pipeline.load_voice, 
-            inputs=[avatar_voice, tts_module], 
+            inputs=[avatar_voice, tts_module, user_input_audio], 
             outputs=[user_input]
             )
         lifecycle.mount(chat_pipeline.load_voice,
-            inputs=[avatar_voice, tts_module],
+            inputs=[avatar_voice, tts_module, user_input_audio],
             outputs=[user_input]
         )
 
         # Submit
         user_input.submit(chat_pipeline.run_pipeline,
-            inputs=[user_input, user_messages, chunk_size, avatar_name, tts_module, chat_mode], 
+            inputs=[user_input, user_messages, chunk_size, avatar_name, tts_module, chat_mode, user_input_audio], 
             outputs=[user_messages]
             )
         user_input.submit(chat_pipeline.yield_results, 
