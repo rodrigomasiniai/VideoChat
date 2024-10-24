@@ -22,7 +22,7 @@ $ conda create -n metahuman python=3.10
 $ conda activate metahuman
 $ cd video_chat
 $ pip install -r requirement.txt
-$ pip install gradio # install gradio 5
+$ pip install --upgrade gradio # install gradio 5
 ```
 
 ### Download Weights
@@ -36,7 +36,7 @@ If you clone via `git clone https://www.modelscope.cn/studios/AI-ModelScope/vide
    
 2.1 MuseTalk weights
 
-Reference: https://github.com/TMElyralab/MuseTalk/blob/main/README.md#download-weights
+Pls refer to this [link](https://github.com/TMElyralab/MuseTalk/blob/main/README.md#download-weights)
 
 The weights should be organized as follows:
 ```plaintext
@@ -58,7 +58,7 @@ The weights should be organized as follows:
 
 2.2 GPT-SoVITS weights
 
-Reference: https://github.com/RVC-Boss/GPT-SoVITS/blob/main/docs/cn/README.md#%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B
+Pls refer to this [link](https://github.com/RVC-Boss/GPT-SoVITS/blob/main/docs/cn/README.md#%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B)
 
 ### Starting the Service
 ```bash
