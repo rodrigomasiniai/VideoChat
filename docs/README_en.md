@@ -22,6 +22,7 @@ $ conda create -n metahuman python=3.10
 $ conda activate metahuman
 $ cd video_chat
 $ pip install -r requirement.txt
+$ pip install gradio # install gradio 5
 ```
 
 ### Download Weights

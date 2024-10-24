@@ -23,6 +23,7 @@ $ conda create -n metahuman python=3.10
 $ conda activate metahuman
 $ cd video_chat
 $ pip install -r requirement.txt
+$ pip install gradio # 安装Gradio 5
 ```
 
 ### 权重下载
