@@ -19,7 +19,7 @@ os.system('mim install mmengine')
 os.system('mim install "mmcv==2.1.0"')
 os.system('mim install "mmdet==3.2.0"')
 os.system('mim install "mmpose==1.2.0"')
-# os.system('pip install gradio') # 安装Gradio 5.0,目前创空间暂不支持，本地可选择5.0版本
+# os.system('pip install --upgrade gradio') # 安装Gradio 5.0,目前创空间暂不支持，本地可选择5.0版本
 shutil.rmtree('./workspaces/results', ignore_errors= True)
 
 
@@ -51,8 +51,6 @@ def create_gradio():
                     tts_module = gr.Dropdown(label = "TTS选型", choices = ["GPT-SoVits", "CosyVoice"], value = "CosyVoice")
                     avatar_voice = gr.Dropdown(label = "TTS音色", choices = ["longxiaochun (CosyVoice)", "longwan (CosyVoice)", "longcheng (CosyVoice)", "longhua (CosyVoice)", "少女 (GPT-SoVits)", "女性 (GPT-SoVits)", "青年 (GPT-SoVits)", "男性 (GPT-SoVits)"], value="longwan (CosyVoice)")
                     
-                
-
                 user_input = mgr.MultimodalInput(sources=["microphone"])
 
             with gr.Column(scale = 1):

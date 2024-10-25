@@ -8,7 +8,7 @@ Online demo：https://www.modelscope.cn/studios/AI-ModelScope/video_chat
 ## TODO
 - [x] Add voice cloning feature to the TTS module 
 - [ ] Add edge-tts to the TTS module
-- [ ] Add local inference for the Qwen to the LLM module
+- [x] Add local inference for the Qwen to the LLM module
 - [ ] Optimize the pipeline: end-to-end speech
 
 ## Technology Stack
@@ -70,14 +70,22 @@ The weights should be organized as follows:
 Pls refer to this [link](https://github.com/RVC-Boss/GPT-SoVITS/blob/main/docs/cn/README.md#%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B)
 
 
-### 3. API-KEY Configuration (Optional)
-If you need to use the [Qwen API](https://www.alibabacloud.com/help/en/model-studio/developer-reference/use-qwen-by-calling-api) provided by Alibaba Cloud's AI Model Service Platform, please configure the API-KEY in app.py (line 14).
-
-Pls refer to this [link](https://www.alibabacloud.com/help/en/model-studio/developer-reference/get-api-key?spm=a2c63.p38356.0.0.282d4e1cInLB3P) to get your API-KEY.
-
+### 3. Other Configurations
+The LLM and TTS modules offer various inference options for you to choose from.
+#### 3.1 Using API-KEY (Default)
+For the LLM and TTS modules, if your local machine has limited performance, you can use the `Qwen API` and `CosyVoice API` provided by Alibaba Cloud's AI Model Service Platform. Please configure the API-KEY in app.py (line 14).
+Refer to [this link](https://www.alibabacloud.com/help/en/model-studio/developer-reference/get-api-key?spm=a2c63.p38356.0.0.282d4e1cInLB3P) to complete the acquisition and configuration of the API-KEY.
 ```python
 os.environ["DASHSCOPE_API_KEY"] = "INPUT YOUR API-KEY HERE"
 ```
+#### 3.2 Without Using API-KEY
+If you do not wish to use an API-KEY, please refer to the instructions below to modify the relevant code.
+##### 3.2.1 LLM Module
+In `src/llm.py`, the `Qwen` and `Qwen_API` classes handle local inference and API calls respectively. If you are not using an API-KEY, there are two ways to perform local inference:
+1. Use `Qwen` for local inference.
+2. `Qwen_API` calls the API by default for inference. If you do not use an API-KEY, you can also use vLLM to deploy the model inference service locally. Refer to [this link](https://qwen.readthedocs.io/zh-cn/latest/getting_started/quickstart.html#vllm-for-deployment) for deployment instructions. After deployment, initialize the instance with `Qwen_API(api_key="EMPTY", base_url="http://localhost:8000/v1")` to call the local inference service.
+##### 3.2.2 TTS Module
+In `src/tts.py`, `GPT_SoVits_TTS` and `CosyVoice_API` handle local inference and API calls respectively. If you are not using an API-KEY, you can directly remove the `CosyVoice_API` related content and use `Edge_TTS` to call the free TTS service of Edge browser for inference.
 
 ### 4. Starting the Service
 ```bash
