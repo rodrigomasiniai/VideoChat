@@ -56,3 +56,4 @@ modelscope_studio
 pydub
 dashscope
 loguru
+edge-tts

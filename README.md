@@ -9,7 +9,7 @@
 
 ## TODO
 - [x] TTS模块添加音色克隆功能
-- [ ] TTS模块添加edge-tts
+- [x] TTS模块添加edge-tts
 - [x] LLM模块添加qwen本地推理
 - [ ] 链路优化：端到端语音
 

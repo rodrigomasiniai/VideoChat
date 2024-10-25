@@ -7,6 +7,7 @@ import soundfile as sf
 import dashscope
 from dashscope.audio.tts_v2 import *
 from dashscope.api_entities.dashscope_response import SpeechSynthesisResponse
+import edge_tts
 
 from src.GPT_SoVITS.TTS_infer_pack.TTS import TTS, TTS_Config
 from src.GPT_SoVITS.tools.i18n.i18n import I18nAuto, scan_language_list
@@ -172,22 +173,7 @@ class CosyVoice_API:
     def __init__(self):
         dashscope.api_key = os.getenv("DASHSCOPE_API_KEY")  
         self.voice = "longwan"
-        # self.synthesizer = SpeechSynthesizer(model="cosyvoice-v1", voice="longxiaochun")
 
-    # 流式调用
-    # def infer(self, project_path, text, index = 0):
-    #     try:
-    #         audio_path = f"{project_path}/audio"
-    #         os.makedirs(audio_path, exist_ok=True)
-
-    #         # start_time = time.time()
-    #         self.synthesizer.streaming_call(text)
-    #         # print("[TTS] API infer cost:", time.time()-start_time)
-    #     except Exception as e:
-    #         print(f"[TTS] API infer error: {e}")
-    #         return None
-
-    # 非流式
     def infer(self, project_path, text, index = 0):
         try:
             audio_path = f"{project_path}/audio"
@@ -203,5 +189,25 @@ class CosyVoice_API:
             return output_wav_path
         except Exception as e:
             print(f"[TTS] API infer error: {e}")
+            return None
+
+class Edge_TTS:
+    def __init__(self):
+        self.voice = "en-GB-SoniaNeural" # use edge-tts --list-voices to see all available voices
+
+    def infer(self, project_path, text, index = 0):
+        try:
+            audio_path = f"{project_path}/audio"
+            os.makedirs(audio_path, exist_ok=True)
+            output_wav_path = f"{audio_path}/llm_response_audio_{index}.wav"
+
+            start_time = time.time()
+            communicate = edge_tts.Communicate(text, self.voice)
+            communicate.save(output_wav_path)
+            print("[TTS] Edge TTS infer cost:", time.time()-start_time)
+                
+            return output_wav_path
+        except Exception as e:
+            print(f"[TTS] Edge TTS infer error: {e}")
             return None
 

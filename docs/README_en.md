@@ -7,7 +7,7 @@ Online demo：https://www.modelscope.cn/studios/AI-ModelScope/video_chat
 
 ## TODO
 - [x] Add voice cloning feature to the TTS module 
-- [ ] Add edge-tts to the TTS module
+- [x] Add edge-tts to the TTS module
 - [x] Add local inference for the Qwen to the LLM module
 - [ ] Optimize the pipeline: end-to-end speech
 
